@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Modern Portfolio — Satyam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#7c5cff; --glass: rgba(255,255,255,0.04);
+      --radius:14px; --transition:300ms cubic-bezier(.2,.9,.3,1);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;padding:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background:linear-gradient(180deg,#071025 0%,var(--bg) 100%);color:#e6eef8; -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;line-height:1.45;font-size:16px;
+    }
+
+    /* container */
+    .wrap{max-width:1100px;margin:48px auto;padding:28px}
+
+    /* header */
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#4fd1c5);display:grid;place-items:center;font-weight:800;color:#061124}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:10px;transition:var(--transition)}
+    nav a:hover{color:#fff;background:var(--glass)}
+
+    .btn{background:linear-gradient(90deg,var(--accent),#4fd1c5);color:#021; padding:10px 14px;border-radius:12px;font-weight:700;border:none;cursor:pointer}
+
+    /* hero */
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:26px;border-radius:var(--radius);backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    h1{margin:0 0 10px;font-size:34px}
+    p.lead{color:var(--muted);margin:0 0 18px}
+
+    .skills{display:flex;flex-wrap:wrap;gap:8px}
+    .skill{background:rgba(255,255,255,0.03);padding:8px 10px;border-radius:999px;font-weight:600;color:var(--muted)}
+
+    .profile{display:flex;flex-direction:column;gap:14px;align-items:center}
+    .avatar{width:220px;height:220px;border-radius:25px;background:linear-gradient(135deg,#243b55,#0b1220);display:grid;place-items:center;font-weight:800;font-size:42px;color:var(--muted)}
+    .rate{background:linear-gradient(90deg,#0ea5a4,#60a5fa);padding:12px 16px;border-radius:12px;color:#021;font-weight:800}
+
+    /* projects */
+    .section{margin-top:26px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .project{padding:14px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);transition:var(--transition);cursor:pointer}
+    .project:hover{transform:translateY(-6px);box-shadow:0 18px 30px rgba(2,6,23,0.6)}
+    .project h3{margin:0 0 8px}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{font-size:12px;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.03);color:var(--muted)}
+
+    /* contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    textarea{min-height:120px;resize:vertical}
+
+    footer{margin-top:28px;color:var(--muted);font-size:14px;text-align:center}
+
+    /* responsive */
+    @media (max-width:980px){.hero{grid-template-columns:1fr 320px}}
+    @media (max-width:820px){
+      .wrap{padding:16px}
+      .hero{grid-template-columns:1fr}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .contact-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:520px){
+      .grid{grid-template-columns:1fr}
+      .logo{width:40px;height:30px}
+      h1{font-size:28px}
+    }
+
+    /* subtle floating animation */
+    .float{animation: float 6s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    .row{display:flex;gap:12px;align-items:center}
+    #img1{
+        border-radius: 25px;
+        height: 220px;
+        width: 220px;
+        border: solid 3px;
+        box-shadow: 0 0 80px 20px;
+    }
+    #img1:hover{
+        cursor: pointer; 
+        background-color: #4fd1c5;
+        color: chartreuse;
+        box-shadow: 0 0 80px 30px;
+    }
+#img2{
+    border-radius: 20px;
+    border: solid 3px;
+}
+#img2:hover{
+      cursor: pointer; 
+        background-color: #4fd1c5;
+        color: chartreuse;
+        box-shadow: 0 0 80px 30px;
+}
+#sat{
+    color: #0ea5a4;
+}
+.skill:hover{
+    cursor: pointer;
+    background-color: cyan;
+    box-shadow: 0 0 80px 30px;
+}
+#nav1 a:hover{
+    cursor: pointer;
+    background-color: brown;
+    box-shadow: 0 0 80px 30px;
+    color:blueviolet;
+    border-radius: 25px;
+}
+#sat2{
+    color: darkgoldenrod;
+    text-shadow: 0 0 80px ;
+
+}
+#sat3{
+    text-decoration: none;
+    color: chartreuse;
+    background-color: green;
+    border-radius: 20px;
+    border: solid red;
+}
+.project.card{
+    background-color:darkslategrey;
+    color:yellow;
+}
+.project.card:hover{
+    cursor: pointer;
+    background-color: rgb(192, 113, 85);
+    color: fuchsia;
+    box-shadow: 0 0 80px 20px;
+}
+#sat4{
+    color: #4fd1c5;
+}
+#sat5{
+    color: chartreuse;
+}
+#sat6{
+    color: #4fd1c5;
+}
+.card1{
+    background-color: chartreuse;
+    border-radius: 25px;
+    color: #0b1220;
+    box-shadow: 0 0 80px 30px;
+}
+.card1:hover{
+    cursor: pointer;
+      background-color: #7c5cff;
+    box-shadow: 0 0 80px 30px;
+    color: green;
+    animation: .5s;
+    transform:translateY(-12px);
+  
+}
+#sat7{
+    color:darkgreen;
+}
+#sat8{
+    color:chocolate }
+    #sat9{
+        color: #0ea5a4;
+    }
+    #saty1{
+        color: chartreuse;
+    }
+   #saty2{
+    color:lightgreen;
+   }
+
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo"><img id="img2"src="satyam bhai.jpg" height="70">
+
+        </div>
+        <div>
+          <div  id="saty1"style="font-weight:800">Satyam — Tech Smart</div>
+          <div id="saty2" class="muted" style="font-size:13px">B.Tech | Computer Science Engineering | Coding & Teaching</div>
+        </div>
+      </div>
+      <nav id="nav1">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <button class="btn" id="downloadBtn">Download CV</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="card">
+          <h1 id="sat2">Hi — I'm Satyam Gautam
+            <span style="font-size:18px;color:var(--muted);font-weight:600"> — I  am Student of Computer Science Engineering
+                And I'm also a Teacher
+            </span>
+          </h1>
+          <p class="lead">I make modern responsive websites, and I make many project using HTML CSS and JavaScript
+            i make a Tic-Tac game and A Simple Calculater And i make also A website for a restaurent which name is Ram Rasoi restaurent Tirwa Kannauj
+        I have strong Intresrt in the field of Coding and Exploring new techenics which can helpfull for the ordenory people </p>
+        <h1 id="sat"> My skills Given That</h1>
+
+          <div class="row" style="margin-bottom:12px">
+            <div class="skills">
+              <div class="skill">HTML</div>
+              <div class="skill">CSS</div>
+              <div class="skill">JavaScript</div>
+              <div class="skill">C/C++</div>
+              <div class="skill">Teaching</div>
+                <div class="skill">DSA</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+            <button class="btn" id="hireBtn">Hire / Book Class</button>
+            <a href="#projects" style="text-decoration:none"><div style="padding:10px 12px;border-radius:12px;background:rgba(255,255,255,0.02);font-weight:700">See Projects →</div></a>
+          </div>
+        </div>
+
+        <aside class="profile card float">
+          <div class="avatar">
+            <img id="img1"src="techsmartsatyam.jpg" height="200">
+          </div>
+          <div style="text-align:center">
+            <div style="font-weight:800">Tech Smart Satyam</div>
+            <div class="muted">Computer Science Engineering • Coding • Teacher</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <div class="rate">₹1000 / 60 min</div>
+            <div class="muted" style="font-size:13px">(In-person / Online negotiable)</div>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <a class="muted" href="#contact">Message</a>
+            <a class="muted" href="#projects">Portfolio</a>
+          </div>
+        </aside>
+      </section>
+
+      <section id="about" class="section">
+        <div class="card">
+          <h2 id="sat8">About Me</h2>
+          <p id="sat9"class="muted">I'm a Second year B.Tech student specializing in Computer Science Engineering. I love Coding and Web designing. Currently  i am working on a project
+             <strong>Web designing like a Tic-Tac Game and etc</strong> project. and i 'm also a <strong> Teacher of the Physics</strong> i have completed DSA with C++  and now days i am solveing the problems 
+            on the <strong> Leetcode</strong> i have strong Intresrt in the field of coding and techenics My short term goal is <strong> Enhance my knowladge and Skills </strong>  
+        and my Long Term goal is<strong> To Become a Successfull Engineer</strong> and contribute to solving real life problem for the ordenory peoples</strong></p>
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <h2 id="sat4" style="margin:14px 0">Selected Projects</h2>
+        <div class="grid">
+          <div class="project card" onclick="openProj(1)">
+            <h3>Tic-Tac Game </h3>
+            <a id="sat3" href="http://127.0.0.1:3000/tic tac game.html"> Click for going side on the game</a>
+            <p id ="sat6" class="muted">Using HTML CSS And JAVA SCRIPT.</p>
+            <div class="tags"><span class="tag">hTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+          </div>
+
+          <div class="project card" onclick="openProj(2)">
+            <h3>Calculater</h3>
+            <a id="sat3" href="http://127.0.0.1:3000/calculator.html"> Click for going side on the Calculater  </a>
+            <p  id ="sat6" class="muted">I have made a Modern Calculater for using Airthematic Operations  During critical conditions </p>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+          </div>
+
+          <div class="project card" onclick="openProj(3)">
+            <h3>Gov Exam Portel</h3>
+            <a id="sat3" href="http://127.0.0.1:3000/govenmet.html"> Click for going side on the portal</a>
+            <p id ="sat6" class="muted">I have made a <strong> Govrnment Exam Portal</strong> Which Can Help In The Conducting Any Govrnment Exam Easly </p>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="section">
+        <h2 id="sat5" style="margin:14px 0">Services</h2>
+        <div class="grid">
+          <div class="card1" style="padding:18px">
+            <h3>Tutoring — Computer Science & Web designing</h3>
+            <p id="sat7" class="muted">I have strong intrest in the field of <strong> Coding ,Web Desinging and Teaching</strong></p>
+            <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+              <div class="rate">₹1000 / hour</div>
+              <div class="muted" style="font-size:13px">Group discounts available</div>
+            </div>
+          </div>
+
+          <div class="card1" style="padding:18px">
+            <h3>Websites & Templates</h3>
+            <p id="sat7" class="muted">Modern responsive websites, portfolios, landing pages. Fast turnaround and clean code.</p>
+            <div class="tags" style="margin-top:12px"><span class="tag">Static Sites</span><span class="tag">Responsive</span></div>
+          </div>
+
+          <div class="card1" style="padding:18px">
+            <h3>Project Guidance</h3>
+            <p id="sat7" class="muted">Help with project idea, design, prototyping, and report writing for college projects.</p>
+            <div class="tags" style="margin-top:12px"><span class="tag">Mentoring</span><span class="tag">Documentation</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <h2 style="margin:14px 0">Contact</h2>
+        <div class="contact-grid">
+          <div class="card">
+            <h3>Get in touch</h3>
+            <p class="muted">Message me about classes, collaborations or project help. I'll usually reply within 24 hours.</p>
+            <div style="margin-top:12px">
+              <div class="row muted">📍 Kanpur Nagar Utter Pradesh India
+              </div>
+              <div class="row muted">✉️ <a href="mailto:satyamsmartboy143@gmail.com" style="color:var(--muted);text-decoration:none">satyamsmartboy143</a></div>
+              <div class="row muted">📱 +91 7880542263</div>
+            </div>
+          </div>
+
+          <form class="card" onsubmit="sendMsg(event)">
+            <input id="name" placeholder="Your name" required />
+            <input id="email" type="email" placeholder="Email" required style="margin-top:10px" />
+            <textarea id="message" placeholder="How can I help you?" style="margin-top:10px"></textarea>
+            <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+              <button class="btn" type="submit">Send Message</button>
+              <div class="muted" id="formStatus" style="font-size:13px">Or contact via WhatsApp</div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <footer>
+        © <span id="year"></span> Satyam • Built with ❤️ • <span class="muted">Simple, modern & fast</span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // small helper interactions
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    document.getElementById('downloadBtn').addEventListener('click', ()=>{
+      // simple CV download simulation — could be replaced with actual file
+      const blob = new Blob(['Satyam - CV\n\nSkills:\n- HTML/CSS/JS\n- Embedded Systems\n- Teaching/Tutoring\n'], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'Satyam_CV.txt'; document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('hireBtn').addEventListener('click', ()=>{
+      document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+      document.getElementById('name').focus();
+    });
+
+    function sendMsg(e){
+      e.preventDefault();
+      const name=document.getElementById('name').value.trim();
+      const email=document.getElementById('email').value.trim();
+      const message=document.getElementById('message').value.trim();
+      const status=document.getElementById('formStatus');
+      if(!name||!email||!message){status.innerText='Please fill all fields';return}
+      // simulate sending
+      status.innerText='Sending...';
+      setTimeout(()=>{status.innerText='Message sent — I will reply soon!';document.querySelector('form').reset()},800);
+    }
+
+    function openProj(id){
+      alert('Open project details for project #' + id + '\n(You can replace this with a modal or project page.)');
+    }
+
+    // small keyboard shortcut: press D to toggle demo dark/light (subtle)
+    let dark=true;
+    window.addEventListener('keydown', (e)=>{ if(e.key.toLowerCase()==='d'){dark=!dark; toggleTheme(dark)} });
+    function toggleTheme(on){
+      if(!on){
+        document.documentElement.style.setProperty('--bg','#f6f8fb');
+        document.documentElement.style.setProperty('--card','#ffffff');
+        document.documentElement.style.setProperty('--muted','#475569');
+        document.documentElement.style.setProperty('--accent','#7c5cff');
+        document.body.style.color='#041124';
+      } else {
+        document.documentElement.style.setProperty('--bg','#0f1724');
+        document.documentElement.style.setProperty('--card','#0b1220');
+        document.documentElement.style.setProperty('--muted','#94a3b8');
+        document.body.style.color='';
+      }
+    }
+
+    // smooth scroll for nav links
+    document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click', (e)=>{
+      e.preventDefault(); document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+    }));
+  </script>
+</body>
+</html>
